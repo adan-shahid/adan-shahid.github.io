@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adan Shahid — EE Student & Backend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563eb;
+      --blue-hover: #1d4ed8;
+      --dark: #111827;
+      --mid: #374151;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #f9fafb;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
+      --shadow-nav: 0 2px 12px rgba(0,0,0,.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      box-shadow: var(--shadow-nav);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1rem; font-weight: 700; color: var(--dark);
+      text-decoration: none; letter-spacing: -.3px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 1.75rem; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--mid); font-size: .875rem; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-right a { text-decoration: none; color: var(--mid); font-size: .875rem; font-weight: 500; }
+    .btn-contact {
+      background: var(--dark); color: var(--white) !important;
+      padding: .45rem 1.1rem; border-radius: 999px; font-size: .875rem; font-weight: 600;
+      transition: background .2s;
+    }
+    .btn-contact:hover { background: var(--blue) !important; }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: .3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--white);
+      padding: 1.5rem 2rem; box-shadow: var(--shadow-nav); z-index: 99;
+      flex-direction: column; gap: 1rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; color: var(--mid); font-size: .95rem; font-weight: 500; padding: .25rem 0; }
+    .mobile-menu .btn-contact { width: max-content; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 0; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── HERO ── */
+    #home { padding: 6rem 0; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 4rem;
+    }
+    .hero-name { font-size: 2.75rem; font-weight: 700; letter-spacing: -.5px; line-height: 1.1; margin-bottom: 1.25rem; }
+    .hero-bio { color: var(--mid); font-size: 1rem; line-height: 1.75; margin-bottom: 2rem; max-width: 520px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .btn { display: inline-block; padding: .6rem 1.25rem; border-radius: var(--radius-sm); font-size: .875rem; font-weight: 600; text-decoration: none; transition: .2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--blue); color: var(--white); }
+    .btn-primary:hover { background: var(--blue-hover); }
+    .btn-secondary { background: var(--mid); color: var(--white); }
+    .btn-secondary:hover { background: #1f2937; }
+    .btn-outline { background: transparent; color: var(--dark); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-photo {
+      width: 100%; aspect-ratio: 3/4; border-radius: var(--radius);
+      object-fit: cover; background: #2563eb;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder {
+      width: 100%; aspect-ratio: 3/4; border-radius: var(--radius);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.5); font-size: .9rem; text-align: center; padding: 1rem;
+    }
+
+    /* ── SECTION HEADING ── */
+    .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; letter-spacing: -.3px; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .exp-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem 1.75rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .exp-role { font-size: 1rem; font-weight: 700; }
+    .exp-company { color: var(--muted); font-size: .875rem; margin-top: .2rem; }
+    .exp-desc { color: var(--mid); font-size: .9rem; margin-top: .75rem; line-height: 1.65; }
+    .badge-date {
+      background: var(--blue); color: var(--white); font-size: .75rem; font-weight: 600;
+      padding: .35rem .85rem; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--white); }
+    .projects-wrapper { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .projects-header { padding: 1.5rem 1.75rem; border-bottom: 1.5px solid var(--border); }
+    .projects-header h2 { font-size: 1.25rem; font-weight: 700; }
+    .project-item { padding: 1.75rem; display: grid; grid-template-columns: 240px 1fr; gap: 2rem; align-items: start; border-bottom: 1px solid var(--border); }
+    .project-item:last-child { border-bottom: none; }
+    .project-thumb {
+      width: 100%; aspect-ratio: 16/10; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: .8rem;
+    }
+    .project-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .6rem; }
+    .project-desc { color: var(--mid); font-size: .875rem; line-height: 1.65; margin-bottom: 1rem; }
+    .tech-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .5rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.25rem; }
+    .tag {
+      padding: .3rem .75rem; border-radius: 999px; font-size: .75rem; font-weight: 600;
+    }
+    .tag-blue { background: var(--blue); color: var(--white); }
+    .tag-dark { background: var(--dark); color: var(--white); }
+    .tag-outline { background: transparent; border: 1.5px solid var(--border); color: var(--dark); }
+    .project-actions { display: flex; gap: .75rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+    .btn-sm { padding: .45rem 1rem; font-size: .8rem; }
+    .btn-watch { background: transparent; color: #dc2626; border: 1.5px solid #dc2626; border-radius: var(--radius-sm); padding: .45rem 1rem; font-size: .8rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: .2s; }
+    .btn-watch:hover { background: #dc2626; color: var(--white); }
+
+    /* ── CERTIFICATIONS ── */
+    .certs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .cert-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .cert-icon {
+      width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--bg);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .cert-name { font-size: .9rem; font-weight: 700; }
+    .cert-issuer { color: var(--muted); font-size: .8rem; margin-top: .15rem; }
+    .cert-date { color: var(--muted); font-size: .75rem; margin-top: .15rem; }
+    .cert-link { display: inline-block; color: var(--blue); font-size: .8rem; font-weight: 600; text-decoration: none; margin-top: .5rem; }
+    .cert-link:hover { text-decoration: underline; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+
+    /* ── WRITINGS ── */
+    #writings { background: var(--white); }
+    .writings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .view-all { color: var(--blue); font-size: .875rem; font-weight: 600; text-decoration: none; }
+    .view-all:hover { text-decoration: underline; }
+    .articles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .article-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .article-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.4); font-size: .8rem;
+    }
+    .article-body { padding: 1.25rem; }
+    .article-date { color: var(--muted); font-size: .78rem; margin-bottom: .4rem; }
+    .article-title { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.4; }
+    .article-desc { color: var(--mid); font-size: .82rem; line-height: 1.6; margin-bottom: 1rem; }
+    .btn-read { display: block; text-align: center; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: .5rem; font-size: .8rem; font-weight: 600; color: var(--dark); text-decoration: none; transition: .2s; }
+    .btn-read:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg); }
+    .edu-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem 1.75rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+    }
+    .edu-degree { font-size: 1rem; font-weight: 700; }
+    .edu-uni { color: var(--muted); font-size: .875rem; margin-top: .2rem; }
+    .edu-desc { color: var(--mid); font-size: .875rem; margin-top: .75rem; line-height: 1.65; }
+    .badge-year {
+      background: var(--dark); color: var(--white); font-size: .75rem; font-weight: 600;
+      padding: .35rem .85rem; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.6); text-align: center;
+      padding: 2rem; font-size: .825rem;
+    }
+    footer a { color: rgba(255,255,255,.8); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-right { display: none; }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-photo-placeholder { aspect-ratio: 4/3; max-width: 340px; }
+      .hero-name { font-size: 2rem; }
+      .project-item { grid-template-columns: 1fr; }
+      .project-thumb { aspect-ratio: 16/8; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .articles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">&lt; Adan Shahid /&gt;</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#writings">Writings</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://github.com/adan-shahid" target="_blank" rel="noopener">Github</a>
+    <a href="mailto:adanshahid.student@gmail.com" class="btn-contact">Contact</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#writings" onclick="closeMenu()">Writings</a>
+  <a href="https://github.com/adan-shahid" target="_blank">Github</a>
+  <a href="mailto:adanshahid.student@gmail.com" class="btn btn-contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-name">Adan Shahid</h1>
+        <p class="hero-bio">I am a Final Year Electrical Engineering Student at the University of Engineering and Technology, Lahore. My expertise are in the field of backend development using Python/Django and applying ML Algorithms.</p>
+        <div class="hero-buttons">
+          <a href="https://linkedin.com/in/adan-shahid" target="_blank" class="btn btn-primary">Connect with me on LinkedIn</a>
+          <a href="https://github.com/adan-shahid" target="_blank" class="btn btn-secondary">Follow me on Github</a>
+          <a href="mailto:adanshahid.student@gmail.com" class="btn btn-outline">Email Me</a>
+        </div>
+      </div>
+      <!-- Replace the div below with <img src="your-photo.jpg" alt="Adan Shahid" class="hero-photo"> once you have the image -->
+              <img src="adan-min.JPG" alt="Adan Shahid" class="hero-photo">
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-card">
+      <div>
+        <div class="exp-role">Machine Learning Intern</div>
+        <div class="exp-company">NCAI — National Center of Artificial Intelligence, Remote</div>
+        <p class="exp-desc">Cleaned and preprocessed large datasets. Trained and deployed predictive models using Scikit-Learn and Pandas.</p>
+      </div>
+      <span class="badge-date">Jun 2022 – Dec 2022</span>
+    </div>
+    <!-- Add more experience cards here using the same structure -->
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="projects-wrapper">
+      <div class="projects-header">
+        <h2>Major Projects</h2>
+      </div>
+
+      <div class="project-item">
+        <div class="project-thumb">Project Thumbnail</div>
+        <div>
+          <div class="project-name">AI-Powered Resume Screener</div>
+          <p class="project-desc">Developed a full-stack application that allows HR professionals to upload bulk resumes. The backend utilizes Natural Language Processing (NLP) to extract keywords, rank candidates based on job descriptions, and serve the results via a Django-powered REST API.</p>
+          <div class="tech-label">Technologies Used:</div>
+          <div class="tags">
+            <span class="tag tag-blue">Python</span>
+            <span class="tag tag-blue">Django</span>
+            <span class="tag tag-dark">Spacy (NLP)</span>
+            <span class="tag tag-dark">Bootstrap 5</span>
+          </div>
+          <div class="project-actions">
+            <a href="#" class="btn btn-secondary btn-sm">View Source Code</a>
+            <a href="#" class="btn-watch">Watch Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more project items here -->
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <h2 class="section-title" style="margin-top: 3.5rem;">Licenses &amp; Certifications</h2>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <div class="cert-name">Deep Learning Specialization</div>
+          <div class="cert-issuer">Coursera | DeepLearning.AI</div>
+          <div class="cert-date">Issued Aug 2025</div>
+          <a href="#" class="cert-link">Show Credential →</a>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🗄️</div>
+        <div>
+          <div class="cert-name">PostgreSQL for Everybody</div>
+          <div class="cert-issuer">University of Michigan</div>
+          <div class="cert-date">Issued Jan 2025</div>
+          <a href="#" class="cert-link">Show Credential →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Skills &amp; Technologies</h2>
+    <div class="tags">
+      <span class="tag tag-blue">Python</span>
+      <span class="tag tag-blue">Django</span>
+      <span class="tag tag-blue">Django Rest Framework</span>
+      <span class="tag tag-dark">Machine Learning</span>
+      <span class="tag tag-dark">Scikit-Learn</span>
+      <span class="tag tag-dark">Pytorch</span>
+
+      <span class="tag tag-outline">SQL</span>
+      <span class="tag tag-outline">Git / GitHub</span>
+      <span class="tag tag-outline">Bootstrap 5</span>
+      <span class="tag tag-outline">PostgreSQL</span>
+    </div>
+  </div>
+</section>
+
+<!-- WRITINGS
+<section id="writings">
+  <div class="container">
+    <div class="writings-header">
+      <h2 class="section-title" style="margin-bottom:0">Technical Writing</h2>
+      <a href="https://medium.com/@adanshahid" target="_blank" class="view-all">View all on Medium →</a>
+    </div>
+    <div class="articles-grid">
+      <div class="article-card">
+        <div class="article-thumb">Article Thumbnail</div>
+        <div class="article-body">
+          <div class="article-date">Published on May 2, 2026</div>
+          <div class="article-title">Optimizing Django Queries with Select Related</div>
+          <p class="article-desc">A deep dive into fixing the N+1 query problem in Django to make your backend APIs lightning fast.</p>
+          <a href="#" class="btn-read">Read on Medium</a>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="article-thumb">Article Thumbnail</div>
+        <div class="article-body">
+          <div class="article-date">Published on April 15, 2026</div>
+          <div class="article-title">Deploying Machine Learning Models with DRF</div>
+          <p class="article-desc">Step-by-step guide on taking a trained Scikit-Learn model and serving it via a Django REST Framework endpoint.</p>
+          <a href="#" class="btn-read">Read on Medium</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <h2 class="section-title">Education</h2>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">B.Sc. Electrical Engineering</div>
+        <div class="edu-uni">University of Engineering and Technology, Lahore</div>
+        <p class="edu-desc">Final Year Student. Focusing on the intersection of hardware and software, with specific coursework in programming, signals and systems, and machine learning.</p>
+      </div>
+      <span class="badge-year">2022 – 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built by <a href="https://github.com/adanshahid">Adan Shahid</a> · Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>
